@@ -1,10 +1,11 @@
-package com.hendisantika.springbootdatatable2.cotroller;
+package com.hendisantika.springbootdatatable2.controller;
 
 import com.hendisantika.springbootdatatable2.entity.Product;
 import com.hendisantika.springbootdatatable2.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -17,17 +18,18 @@ import org.springframework.web.bind.annotation.RestController;
  * Time: 06.02
  */
 @RestController
+@RequestMapping(path = "/api/products")
 public class ProductRestController {
 
     @Autowired
     private ProductService productService;
 
-    @GetMapping(path = "/api/products")
+    @GetMapping
     public Iterable<Product> getAllProducts() {
         return productService.getAllProducts();
     }
 
-    @GetMapping(path = "/api/products/{id}")
+    @GetMapping(path = "/{id}")
     public Product getProductById(@PathVariable("id") Integer id) {
         return productService.getProductById(id);
     }

@@ -1,4 +1,4 @@
-package com.hendisantika.springbootdatatable2.cotroller;
+package com.hendisantika.springbootdatatable2.controller;
 
 import com.hendisantika.springbootdatatable2.entity.Product;
 import com.hendisantika.springbootdatatable2.service.ProductService;
@@ -31,7 +31,7 @@ public class ProductController {
     @GetMapping(path = "/products")
     public String getAllProducts(Model model) {
         model.addAttribute("products", productService.getAllProducts());
-        return "products";
+        return "products-list";
     }
 
     @GetMapping("product/new")
