@@ -1,5 +1,6 @@
 package com.hendisantika.springbootdatatable2.cotroller;
 
+import com.hendisantika.springbootdatatable2.entity.Product;
 import com.hendisantika.springbootdatatable2.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,5 +30,11 @@ public class ProductController {
     public String getAllProducts(Model model) {
         model.addAttribute("products", productService.getAllProducts());
         return "products";
+    }
+
+    @GetMapping("product/new")
+    public String newProduct(Model model) {
+        model.addAttribute("product", new Product());
+        return "productform";
     }
 }
