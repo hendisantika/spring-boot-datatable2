@@ -1,7 +1,9 @@
 package com.hendisantika.springbootdatatable2.cotroller;
 
+import com.hendisantika.springbootdatatable2.entity.Product;
 import com.hendisantika.springbootdatatable2.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -18,4 +20,9 @@ public class ProductRestController {
 
     @Autowired
     private ProductService productService;
+
+    @GetMapping(path = "/api/products")
+    public Iterable<Product> getAllProducts() {
+        return productService.getAllProducts();
+    }
 }
