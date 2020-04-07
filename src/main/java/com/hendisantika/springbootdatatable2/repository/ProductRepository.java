@@ -2,7 +2,6 @@ package com.hendisantika.springbootdatatable2.repository;
 
 import com.hendisantika.springbootdatatable2.entity.Product;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
 
 /**
  * Created by IntelliJ IDEA.
@@ -13,6 +12,5 @@ import org.springframework.stereotype.Repository;
  * Date: 08/04/20
  * Time: 05.59
  */
-@Repository("productRepository")
 public interface ProductRepository extends CrudRepository<Product, Integer> {
 }
