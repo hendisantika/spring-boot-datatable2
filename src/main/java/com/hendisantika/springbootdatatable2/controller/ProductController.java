@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * Created by IntelliJ IDEA.
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
  * Time: 06.03
  */
 @Controller
+@RequestMapping(path = "/products")
 public class ProductController {
 
     private ProductService productService;
@@ -28,31 +30,31 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @GetMapping(path = "/products")
+    @GetMapping
     public String getAllProducts(Model model) {
         model.addAttribute("products", productService.getAllProducts());
         return "products-list";
     }
 
-    @GetMapping("product/new")
+    @GetMapping("/new")
     public String newProduct(Model model) {
         model.addAttribute("product", new Product());
-        return "productform";
+        return "products-form";
     }
 
-    @PostMapping(value = "product")
+    @PostMapping
     public String saveProduct(Product product) {
         productService.saveProduct(product);
-        return "redirect:/products/" + product.getId();
+        return "redirect:/products";
     }
 
-    @GetMapping("product/edit/{id}")
+    @GetMapping("/edit/{id}")
     public String edit(@PathVariable Integer id, Model model) {
         model.addAttribute("product", productService.getProductById(id));
-        return "productform";
+        return "products-form";
     }
 
-    @GetMapping("product/delete/{id}")
+    @GetMapping("/delete/{id}")
     public String delete(@PathVariable Integer id) {
         productService.deleteProduct(id);
         return "redirect:/products";
