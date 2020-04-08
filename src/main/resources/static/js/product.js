@@ -12,7 +12,7 @@ $(document).ready(function () {
             {
                 "data": "id",
                 "render": function (data, type, full, meta) {
-                    return '<a class="btn btn-danger btn-sm" onclick="return confirm(\'Anda yakin menghapus product ini ?\');" href="/product/delete/' + data + '">Delete</a>';
+                    return '<a class="btn btn-danger btn-sm" onclick="return confirm(\'Anda yakin menghapus product ini ?\');" href="/products/delete/' + data + '">Delete</a>';
                 }
             }
         ]

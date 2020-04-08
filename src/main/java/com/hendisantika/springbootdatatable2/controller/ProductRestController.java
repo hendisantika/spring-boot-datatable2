@@ -3,9 +3,11 @@ package com.hendisantika.springbootdatatable2.controller;
 import com.hendisantika.springbootdatatable2.entity.Product;
 import com.hendisantika.springbootdatatable2.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -32,5 +34,12 @@ public class ProductRestController {
     @GetMapping(path = "/{id}")
     public Product getProductById(@PathVariable("id") Integer id) {
         return productService.getProductById(id);
+    }
+
+    @DeleteMapping(path = "/{id}")
+    @ResponseBody
+    public String deleteProductById(@PathVariable("id") Integer id) {
+        productService.deleteProduct(id);
+        return "redirect:/products";
     }
 }
