@@ -17,10 +17,13 @@
     <h1 align="center">Products Table</h1>
     <p><a class="btn btn-primary" href="/products/new">Add Product</a>
         <button class="btn btn-warning btn-sm glyphicon glyphicon-trash" id="bulk" name="bulk"
-                onclick="deleteAllRecords();" type="button">
-            <button class="btn btn-info btn-sm glyphicon glyphicon-trash" id="bulkSave" name="bulkSave"
-                    onclick="saveAllRecords();" type="button">
-            </button>
+                onclick="deleteAllRecords();" type="button">Delete
+        </button>
+        <button class="btn btn-info btn-sm glyphicon glyphicon-trash" id="bulkSave" name="bulkSave"
+                onclick="saveAllRecords();" type="button"> Bulk Save
+        </button>
+        <button class="btn btn-primary btn-sm glyphicon glyphicon-trash" id="myButton" type="button">Get Data</button>
+    <div id="contentHolder"></div>
     </p>
     <table class="display" id="productsTable">
         <thead>
@@ -142,6 +145,35 @@
         }
 
     }
+
+    /**
+     * Save Bulk method 2
+     * */
+    $("#myButton").on("click", function (e) {
+        e.preventDefault();
+        var aData = [];
+        aData[0] = $("#ddlSelectYear").val();
+        $("#contentHolder").empty();
+        var jsonData = JSON.stringify({aData: aData});
+        $.ajax({
+            type: "POST",
+            url: "api/products",
+            data: jsonData,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json", // dataType is json format
+            success: OnSuccess,
+            error: OnErrorCall
+        });
+
+        function OnSuccess(response) {
+            console.log(response.d)
+        }
+
+        function OnErrorCall(response) {
+            console.log(error);
+        }
+    });
+    //*
 
 </script>
 
