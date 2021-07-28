@@ -2,6 +2,8 @@ package com.hendisantika.springbootdatatable2.controller;
 
 import com.hendisantika.springbootdatatable2.entity.Product;
 import com.hendisantika.springbootdatatable2.service.ProductService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
 
 /**
  * Created by IntelliJ IDEA.
@@ -22,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(path = "/api/products")
 public class ProductRestController {
+    private final Logger logger = LoggerFactory.getLogger(ProductRestController.class);
 
     @Autowired
     private ProductService productService;
@@ -32,14 +36,15 @@ public class ProductRestController {
     }
 
     @GetMapping(path = "/{id}")
-    public Product getProductById(@PathVariable("id") Integer id) {
+    public Product getProductById(@PathVariable("id") Long id) {
         return productService.getProductById(id);
     }
 
     @DeleteMapping(path = "/{id}")
     @ResponseBody
-    public String deleteProductById(@PathVariable("id") Integer id) {
+    public String deleteProductById(@PathVariable("id") Long id) {
         productService.deleteProduct(id);
         return "redirect:/products";
     }
+
 }
