@@ -1,7 +1,9 @@
 package com.hendisantika.springbootdatatable2.repository;
 
 import com.hendisantika.springbootdatatable2.entity.Product;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -12,5 +14,6 @@ import org.springframework.data.repository.CrudRepository;
  * Date: 08/04/20
  * Time: 05.59
  */
-public interface ProductRepository extends CrudRepository<Product, Integer> {
+public interface ProductRepository extends JpaRepository<Product, Long> {
+    List<Product> findByIdIn(Long[] id);
 }
