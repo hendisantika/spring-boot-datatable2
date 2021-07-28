@@ -1,9 +1,12 @@
 package com.hendisantika.springbootdatatable2.service;
 
 import com.hendisantika.springbootdatatable2.entity.Product;
+import com.hendisantika.springbootdatatable2.exception.ResourceNotFoundException;
 import com.hendisantika.springbootdatatable2.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -23,15 +26,21 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public Product getProductById(Integer id) {
-        return productRepository.findById(id).get();
+    public Product getProductById(Long id) {
+        return productRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Product Id Not Found " + id));
     }
 
     public Product saveProduct(Product product) {
         return productRepository.save(product);
     }
 
-    public void deleteProduct(Integer id) {
+    public void deleteProduct(Long id) {
         productRepository.deleteById(id);
+    }
+
+    public void deleteInBatch(Long[] ids) {
+        List<Product> list = productRepository.findByIdIn(ids);
+        productRepository.deleteAllInBatch(list);
     }
 }
