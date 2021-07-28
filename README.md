@@ -20,3 +20,8 @@ Add New Product
 Delete Product
 
 ![Delete Product](img/delete.png "Delete Product")
+
+List Product with Checkbox
+
+![List Product with Checkbox](img/products.png "List Product with Checkbox")
+
