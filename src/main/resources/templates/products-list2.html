@@ -166,6 +166,17 @@
         });
 
         function OnSuccess(response) {
+            var items = response.d;
+            var fragment = "<ul>"
+            $.each(items, function (index, val) {
+
+                var productID = val.id;
+                var productName = val.name;
+                var productPrice = val.price;
+                var productVersion = val.version;
+                fragment += "<li> " + productID + " :: " + productName + " - " + productPrice + "- " + productVersion + "</li>";
+            });
+            $("#contentHolder").append(fragment);
             console.log(response.d)
         }
 
