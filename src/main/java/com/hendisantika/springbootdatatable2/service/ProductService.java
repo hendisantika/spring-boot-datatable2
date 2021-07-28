@@ -35,6 +35,10 @@ public class ProductService {
         return productRepository.save(product);
     }
 
+    public List<Product> bulkSaveProducts(List<Product> products) {
+        return productRepository.saveAll(products);
+    }
+
     public void deleteProduct(Long id) {
         productRepository.deleteById(id);
     }
