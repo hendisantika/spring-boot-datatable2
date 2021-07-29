@@ -39,7 +39,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="product, iter : ${products}">
+        <tr id="Product-${product.id}" th:each="product, iter : ${products}">
             <td>
                 <input class="bulk" id="bulk_${product.id }" name="bulk"
                        th:value="${product.id}" type="checkbox"/>&nbsp;
@@ -105,6 +105,30 @@
         }
     }
 
+    function test() {
+        const params = []
+        $('input:checkbox:checked.bulk').each(function () {
+            const id = this.value
+            const tableRow = $('#Product-' + id)
+            const getTextByAttribute = function (attrValue) {
+                return tableRow.find("[key-id='" + attrValue + "']").text()
+            }
+            const data = {
+                name: getTextByAttribute('productName'),
+                price: parseInt(getTextByAttribute('productPrice')),
+                productId: id,
+                version: parseInt(getTextByAttribute('productVersion')),
+            }
+
+            params.push(data)
+            console.log("You have selected " + data);
+
+            function OnErrorCall(response) {
+                console.log(error);
+            }
+        })
+    }
+
     /**
      * bulk save records
      *
@@ -153,11 +177,35 @@
         e.preventDefault();
         var aData = [];
         aData[0] = $("#ddlSelectYear").val();
+
         $("#contentHolder").empty();
+
+        const params = []
+        $('input:checkbox:checked.bulk').each(function () {
+            const id = this.value
+            const tableRow = $('#Product-' + id)
+            const getTextByAttribute = function (attrValue) {
+                return tableRow.find("[key-id='" + attrValue + "']").text()
+            }
+            const data = {
+                name: getTextByAttribute('productName'),
+                price: parseInt(getTextByAttribute('productPrice')),
+                productId: id,
+                version: parseInt(getTextByAttribute('productVersion')),
+            }
+
+            params.push(data)
+            console.log("You have selected " + data);
+
+            function OnErrorCall(response) {
+                console.log(error);
+            }
+        })
+
         var jsonData = JSON.stringify({aData: aData});
         $.ajax({
             type: "POST",
-            url: "api/products",
+            url: "/api/products",
             data: jsonData,
             contentType: "application/json; charset=utf-8",
             dataType: "json", // dataType is json format
