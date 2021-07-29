@@ -170,11 +170,12 @@
             var fragment = "<ul>"
             $.each(items, function (index, val) {
 
-                var productID = val.id;
+                var ID = val.id;
+                var productID = val.productId;
                 var productName = val.name;
                 var productPrice = val.price;
                 var productVersion = val.version;
-                fragment += "<li> " + productID + " :: " + productName + " - " + productPrice + "- " + productVersion + "</li>";
+                fragment += "<li> " + ID + " :: " + productID + " :: " + productName + " - " + productPrice + "- " + productVersion + "</li>";
             });
             $("#contentHolder").append(fragment);
             console.log(response.d)
