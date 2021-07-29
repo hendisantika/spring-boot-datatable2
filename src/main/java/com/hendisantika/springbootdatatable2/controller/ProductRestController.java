@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -53,7 +54,7 @@ public class ProductRestController {
     }
 
     @PostMapping
-    public ResponseEntity<List<Product>> bulkSaveProduct(List<Product> products) {
+    public ResponseEntity<List<Product>> bulkSaveProduct(@RequestBody List<Product> products) {
         List<Product> createdProduct = productService.bulkSaveProducts(products);
         logger.info("Bulk Save Product!");
         return new ResponseEntity<>(createdProduct, HttpStatus.CREATED);

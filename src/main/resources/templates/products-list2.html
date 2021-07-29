@@ -47,7 +47,7 @@
             <td th:text="${iter.index+1}">Id</td>
             <td class="products" key-id="productName" th:text="${product.name}">Product Name</td>
             <td class="products" key-id="productPrice" th:text="${product.price}">Product Price</td>
-            <td th:text="${product.id}">Product ID</td>
+            <td class="products" key-id="productID" th:text="${product.productId}">Product ID</td>
             <td class="products" key-id="productVersion" th:text="${product.version}">Product Version</td>
             <td align="right">
                 <a class="glyphicon glyphicon-pencil" th:href="@{/products/edit/{id}(id = ${product.id})}"
@@ -180,37 +180,32 @@
         const aData = []
         $('input:checkbox:checked.bulk').each(function () {
             const id = this.value
-            const tableRow = $('#Product-' + id)
+            const tableRow = $(this).parents('#productsTable tr')
             const getTextByAttribute = function (attrValue) {
-                return tableRow.find("[key-id='" + attrValue + "']").text()
+                return tableRow.find("[key-id=" + attrValue + "]").text()
             }
+
             const data = {
                 name: getTextByAttribute('productName'),
                 price: parseInt(getTextByAttribute('productPrice')),
-                productId: id,
+                productId: getTextByAttribute('productID'),
                 version: parseInt(getTextByAttribute('productVersion')),
             }
 
             aData.push(data)
-            console.log("You have selected " + data);
-
-            function OnErrorCall(response) {
-                console.log(error);
-            }
         })
 
-        var jsonData = JSON.stringify({aData: aData});
+        let jsonData = JSON.stringify(aData);
+        console.log("jsonData: " + jsonData);
         $.ajax({
             type: "POST",
             url: "/api/products",
             data: jsonData,
             contentType: "application/json; charset=utf-8",
-            dataType: "json", // dataType is json format
+            dataType: "json",
             success: OnSuccess,
             error: OnErrorCall
         });
-
-        console.log(params);
 
         function OnSuccess(response) {
             var items = response.d;
@@ -234,7 +229,6 @@
             console.log(error);
         }
     });
-    //*
 
 </script>
 
