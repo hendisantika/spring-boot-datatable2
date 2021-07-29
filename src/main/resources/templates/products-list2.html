@@ -175,12 +175,9 @@
      * */
     $("#myButton").on("click", function (e) {
         e.preventDefault();
-        var aData = [];
-        aData[0] = $("#ddlSelectYear").val();
-
         $("#contentHolder").empty();
 
-        const params = []
+        const aData = []
         $('input:checkbox:checked.bulk').each(function () {
             const id = this.value
             const tableRow = $('#Product-' + id)
@@ -194,7 +191,7 @@
                 version: parseInt(getTextByAttribute('productVersion')),
             }
 
-            params.push(data)
+            aData.push(data)
             console.log("You have selected " + data);
 
             function OnErrorCall(response) {
@@ -213,6 +210,8 @@
             error: OnErrorCall
         });
 
+        console.log(params);
+
         function OnSuccess(response) {
             var items = response.d;
             var fragment = "<ul>"
@@ -230,6 +229,8 @@
         }
 
         function OnErrorCall(response) {
+            console.log(jsonData);
+            console.log(response);
             console.log(error);
         }
     });
